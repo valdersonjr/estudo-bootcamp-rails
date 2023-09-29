@@ -115,5 +115,35 @@ RSpec.describe "Admin::V1::Categories", type: :request do
             end
         end
     end
+
+    context "DELETE /categories/:id" do
+        let!(:category) { create(:category) }
+        let(:url) { "/admin/v1/categories/#{category.id}" }
+
+        context 'with valid params' do
+            it 'removes a category' do
+                expect  do
+                    delete url, headers: auth_header(user)
+                end.to change(Category, :count).by(-1)
+            end
+
+            it 'returns sucess status' do
+                delete url, headers: auth_header(user)
+                expect(response).to have_http_status(:no_content)
+            end
+
+            it 'does not return any body content' do
+                delete url, headers: auth_header(user)
+                expect(body_json).to_not be_present
+            end
+
+            it 'removes all associated product categories' do
+                product_categories = create_list(:product_category, 3, category: category)
+                delete url, headers: auth_header(user)
+                expected_product_categories = ProductCategory.where(id: product_categories.map(&:id))
+                expect(expected_product_categories.count).to eq 0
+            end
+        end
+    end
     
 end
