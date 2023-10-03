@@ -8,11 +8,11 @@ RSpec.describe "Admin V1 SystemRequirements without authentication", type: :requ
         include_examples "unauthenticated access"
     end
 
-    # context "POST /system_requirements" do
-    #     let(:url) { "/admin/v1/system_requirements" }
-    #     before(:each) { post url }
-    #     include_examples "unauthenticated access"
-    # end
+    context "POST /system_requirements" do
+        let(:url) { "/admin/v1/system_requirements" }
+        before(:each) { post url }
+        include_examples "unauthenticated access"
+    end
 
     # context "PATCH /system_requirements/:id" do
     #     let(:system_requirement) { create(:system_requirement) }
