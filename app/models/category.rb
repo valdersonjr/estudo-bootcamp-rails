@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
+  include LikeSearchable
   include NameSearchable
   include Paginatable
   
