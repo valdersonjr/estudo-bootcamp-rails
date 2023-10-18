@@ -6,6 +6,7 @@ FactoryBot.define do
     productable { nil }
     image { Rack::Test::UploadedFile.new(Rails.root.join("spec/support/images/product_image.png")) }
     status { :available }
+    featured { true }
 
     after :build do |product|
       product.productable ||= create(:game)
