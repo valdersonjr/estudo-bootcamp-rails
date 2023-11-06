@@ -14,6 +14,11 @@ module RequestAPI
     end
 end
 
+def unauthenticated_header(merge_with: {})
+  default_header = { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+  default_header.merge merge_with
+end
+
 RSpec.configure do |config|
     config.include RequestAPI, type: :request
 end
