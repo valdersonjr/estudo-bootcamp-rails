@@ -6,6 +6,8 @@ class LineItem < ApplicationRecord
   validates :payed_price, presence: true, numericality: { greater_than: 0 }
   validates :status, presence: true, on: :update
 
+  has_many :licenses
+
   enum status: { waiting_order: 1, preparing: 2, en_route: 3, delivered: 4 }
 
   before_validation :set_default_status, on: :create
