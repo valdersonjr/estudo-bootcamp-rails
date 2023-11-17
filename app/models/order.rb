@@ -28,12 +28,19 @@ class Order < ApplicationRecord
   enum payment_type: { credit_card: 1, billet: 2 }
 
   before_validation :set_default_status, on: :create
+  
+  around_update :ship_order, if: -> { self.status_changed?(to: 'payment_accepted') }
 
   def due_date
     self.created_at + DAYS_TO_DUE.days
   end
 
   private
+
+  def ship_order
+    yield
+    self.line_items.each { |line_item| line_item.ship! }
+  end
 
   def set_default_status
     self.status = :processing_order
