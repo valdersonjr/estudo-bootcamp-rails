@@ -5,6 +5,9 @@ ruby '2.7.1'
 
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
 
+gem "sidekiq", '~> 6.1.3'
+gem "sidekiq-scheduler", '~> 3.0.1'
+
 # Basic
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'pg', '>= 0.18', '< 2.0'
